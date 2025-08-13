@@ -1,0 +1,26 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# macOS metadata
+.DS_Store
+
+# VSCode settings 
+.vscode/
+
+# Chroma DB
+src/chroma/
+src/chroma
+/src/chroma/
+/src/choma
+
+# data
+data
