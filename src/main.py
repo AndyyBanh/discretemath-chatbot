@@ -1,17 +1,18 @@
-import argparse
+from fastapi import FastAPI
+from pydantic import BaseModel
 from langchain_chroma import Chroma
-from langchain_openai import ChatOpenAI
-from langchain_openai import OpenAIEmbeddings
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain.prompts import ChatPromptTemplate
 from langchain.schema import SystemMessage
 from dotenv import load_dotenv
 import os
-import openai
+from fastapi.middleware.cors import CORSMiddleware
 
-# Load enviroment variables
+# Load env
 load_dotenv()
-openai.api_key = os.environ["OPENAI_API_KEY"]
 CHROMA_PATH = "chroma"
+
+app = FastAPI()
 
 PROMPT_TEMPLATE = """
 Answer the question based only on the following context:
@@ -23,36 +24,40 @@ Answer the question based only on the following context:
 Answer the question based on the above context: {query}
 """
 
-def main():
-    # Command Line interface
-    parser = argparse.ArgumentParser()
-    parser.add_argument("query_text", type=str, help="The query text.")
-    arg = parser.parse_args()
-    query_text = arg.query_text
+# Middleware 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"], # frontend url
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-    # Prepare DB
-    embedding_function = OpenAIEmbeddings()
-    db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+# Define Schema of request
+class QueryRequest(BaseModel):
+    query: str
+
+# Setup DB
+embedding_function = OpenAIEmbeddings()
+db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
+
+# Define API POST Endpoint
+@app.post("/api/chat")
+async def chat_endpoint(request: QueryRequest):
+    query_text = request.query
 
     # Search DB for best match of query
     results = db.similarity_search_with_relevance_scores(query_text, k=3)
     if len(results) == 0 or results[0][1] < 0.7: # check if no results or no accurate results
-        print(f"Unable to find matching results.")
-        return 
+        return {"response": "Unable to find matching results.", "sources": []}
     
     # Create prompt
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
     prompt = prompt_template.format_prompt(context=context_text, query=query_text)
-    messages = prompt.to_messages()
+    messages = [SystemMessage(content="You are a helpful discrete math assistant. Only answer using provided context.")] + prompt.to_messages()
 
-    # Explicit system role to prevent hallucination
-    system_message = SystemMessage(
-        content="You are a helpful discrete math assistant. Only answer using provided context."
-    )
-    messages = [system_message] + messages
-
-    # Use LLM to answer
+    # Call LLM
     llm = ChatOpenAI(
         model="gpt-4o-mini",
         temperature=0,
@@ -63,10 +68,7 @@ def main():
     response = llm.invoke(messages) # call model with list of messages
     response_text = response.content
 
+    # Get Source
     sources = [doc.metadata.get("source", None) for doc, _score in results]
-    formatted_response = f"Response: {response_text}\nSources: {sources}"
-    print(formatted_response)
 
-
-if __name__ == "__main__":
-    main()
+    return {"response": response_text, "sources": sources}
