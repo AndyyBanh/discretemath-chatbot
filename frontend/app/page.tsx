@@ -11,14 +11,33 @@ export default function Home() {
         <ChatWindow />
       </div>
       
-
-      <div className="flex w-full flex-col">
-        {/* info card on how to get solutions */}
-        <div className="card bg-base-300 rounded-box grid h-20 place-items-center">How to Use</div>
-        <div className="divider"></div>
-        {/* info card on why it is good */}
-        <div className="card bg-base-300 rounded-box grid h-20 place-items-center">Learning Made Easy</div>
+      
+      <div className="card bg-base-200 card-border w-full">
+        <div className="card-body items-center text-center">
+          <h2 className="card-title text-2xl font-bold">Test Your Knowledge!</h2>
+          <p>Attempt Quizes based on content.</p>
+          <div className="card-actions justify-end">
+            <button className="btn btn-lg w-3xs">Test</button>
+          </div>
+        </div>
       </div>
+
+
+
+      <div className="mt-20 place-items-center">
+        <h2 className="font-bold text-3xl">Discrete Math AI Assistant</h2>
+        {/* Horizontal divder */}
+        <div className="flex w-full mt-5">
+          <div className="grid place-items-center">
+            <p className="text-lg">Discrete Math Assistant is an educational tool used to help students learn the concepts of Discrete Mathematics, and reinforce that knowledge through practice and repetition in the Quiz Me Module.</p>
+          </div>
+          <div className="card bg-base-200 card-border grid place-items-center p-5">
+            <h3 className="text-2xl font-semibold">How It Works</h3>
+            <p className="font-medium mt-1.5">Using a RAG model based on 1000+ pages of Discrete Math Content. Experience quick and consistent explanations of various topics using OpenAI model.</p>
+          </div>
+        </div>
+      </div>
+
     </main>
   );
 }
