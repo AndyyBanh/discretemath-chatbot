@@ -163,29 +163,54 @@
   ],
   "Graphs": [
     {
-      "question": "Which graph traversal uses a queue?",
-      "options": ["DFS", "BFS", "Dijkstra", "Prim's"],
+      "question": "Which of the following is a bipartite graph?",
+      "options": [
+        "A cycle with 3 vertices",
+        "A cycle with 4 vertices",
+        "A complete graph with 3 vertices",
+        "A tree with 5 vertices"
+      ],
       "answerIndex": 1
     },
     {
-      "question": "Which of the following is a tree?",
-      "options": ["Acyclic connected graph", "Cyclic connected graph", "Disconnected graph", "Complete graph"],
+      "question": "Two graphs are isomorphic if:",
+      "options": [
+        "They have the same number of vertices and edges",
+        "There is a one-to-one correspondence between vertices preserving adjacency",
+        "They are both connected",
+        "They have the same degree sequence only"
+      ],
+      "answerIndex": 1
+    },
+    {
+      "question": "An Euler path in a graph is:",
+      "options": [
+        "A path that visits every vertex exactly once",
+        "A path that visits every edge exactly once",
+        "A cycle that visits every edge exactly once",
+        "A path that visits all vertices and edges at least once"
+      ],
+      "answerIndex": 1
+    },
+    {
+      "question": "A simple path in a graph is defined as:",
+      "options": [
+        "A path that does not repeat vertices",
+        "A path that does not repeat edges",
+        "A path that forms a cycle",
+        "A path that starts and ends at the same vertex"
+      ],
       "answerIndex": 0
     },
     {
-      "question": "In a connected graph with n vertices, the minimum number of edges is:",
-      "options": ["n-1", "n", "2n", "n^2"],
-      "answerIndex": 0
-    },
-    {
-      "question": "Which algorithm finds the shortest path?",
-      "options": ["Dijkstra", "DFS", "Prim's", "Kruskal"],
-      "answerIndex": 0
-    },
-    {
-      "question": "What is the maximum number of edges in a simple undirected graph with n vertices?",
-      "options": ["n(n-1)/2", "n^2", "2n", "n(n+1)/2"],
-      "answerIndex": 0
+      "question": "Which of the following graphs cannot have an Euler path?",
+      "options": [
+        "A connected graph with exactly two vertices of odd degree",
+        "A disconnected graph",
+        "A cycle graph",
+        "A complete graph with all vertices of even degree"
+      ],
+      "answerIndex": 1
     }
   ],
   "Trees": [

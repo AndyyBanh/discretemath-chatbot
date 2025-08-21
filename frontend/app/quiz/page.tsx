@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import QuizQuestionCard from './QuizQuestionCard';
 import { QuizQuestion } from './types';
+import BackButton from '../components/BackButton';
 
 const Quiz = () => {
     // State Variables
@@ -50,31 +51,34 @@ const Quiz = () => {
 
   return (
     <div className='p-5'>
-        <h2 className='font-black text-2xl'>Test Your Knowledge</h2>
+        <BackButton />
+        <div className='mt-3.5'>
+            <h2 className='font-black text-2xl'>Test Your Knowledge</h2>
 
-        {loading && <p>Loading Quiz...</p>}
+            {loading && <p>Loading Quiz...</p>}
 
-        {!loading && quiz.length > 0 && (
-            <div className='mt-6'>
-                {quiz.map((question,i) => (
-                    <QuizQuestionCard
-                        key={i}
-                        index={i}
-                        question={question}
-                        selected={selected[i]}
-                        onSelect={handleSelect}
-                        submitted={submitted}
-                    />
-                ))}
-                {!submitted ? (
-                    <button className='btn' onClick={handleSubmit}>
-                        Submit
-                    </button>
-                ) : (
-                    <p>Quiz Submitted Score: {score} / {quiz.length} </p>
-                )}
-            </div>
-        )}
+            {!loading && quiz.length > 0 && (
+                <div className='mt-6'>
+                    {quiz.map((question,i) => (
+                        <QuizQuestionCard
+                            key={i}
+                            index={i}
+                            question={question}
+                            selected={selected[i]}
+                            onSelect={handleSelect}
+                            submitted={submitted}
+                        />
+                    ))}
+                    {!submitted ? (
+                        <button className='btn mt-5 w-xl' onClick={handleSubmit}>
+                            Submit
+                        </button>
+                    ) : (
+                        <p>Quiz Submitted Score: {score} / {quiz.length} </p>
+                    )}
+                </div>
+            )}
+        </div>
     </div>
   )
 }
