@@ -12,12 +12,8 @@ const ChatInput = ( {onSend}: ChatInputProp ) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Check if input is empty
     if (!input.trim()) return;
-
-    // Send Input
     onSend(input);
-    // Clear Input
     setInput("");
   }
   

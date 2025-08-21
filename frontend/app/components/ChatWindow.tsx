@@ -6,8 +6,8 @@ import ChatHeader from './ChatHeader';
 
 // define message object
 interface Message {
-  role: "user" | "assistant",
-  content: string,
+  role: "user" | "assistant";
+  content: string;
 }
 
 const ChatWindow = () => {
@@ -17,7 +17,6 @@ const ChatWindow = () => {
 
   // Function to add messages to chat history
   const handleSend = async (userMessage: string) => {
-    // Create new array by copying previous messsages and appending new message
     setMessage((prev) =>  [...prev, { role: "user", content: userMessage }])
     setLoading(true);
 
@@ -29,7 +28,6 @@ const ChatWindow = () => {
         body: JSON.stringify({ query: userMessage }),
       });
 
-      // Parse JSON response from server
       const data = await res.json();
 
       // Update chat state with the AI assistant's response

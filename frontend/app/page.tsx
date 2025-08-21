@@ -1,4 +1,4 @@
-import ChatInput from "./components/ChatInput";
+import Link from "next/link";
 import ChatWindow from "./components/ChatWindow";
 
 
@@ -17,7 +17,9 @@ export default function Home() {
           <h2 className="card-title text-2xl font-bold">Test Your Knowledge!</h2>
           <p>Attempt Quizes based on content.</p>
           <div className="card-actions justify-end">
-            <button className="btn btn-lg w-3xs">Test</button>
+            <Link href="/quiz" className="btn btn-lg w-3xs">
+              Test
+            </Link>
           </div>
         </div>
       </div>
