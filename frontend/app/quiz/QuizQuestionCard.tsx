@@ -1,19 +1,13 @@
 import React from 'react'
-
-// Define QuizQuestion object
-type QuizQuestion = {
-    question: string;
-    options: string[];
-    answer: string;
-}
+import { QuizQuestion } from './types'
 
 // Define props for this card
 type Props = {
     index: number;
     question: QuizQuestion;
-    selected?: string;
+    selected?: number;
     submitted: boolean;
-    onSelect: (index: number, option: string) => void;
+    onSelect: (questionIndex: number, optionIndex: number) => void;
 }
 
 const QuizQuestionCard = ({ 
@@ -26,7 +20,38 @@ const QuizQuestionCard = ({
 
     
   return (
-    <div>QuizQuestionCard</div>
+    <div className='card'>
+      {/* display question */}
+      <p className='text-lg'>
+        {index + 1}. {question.question}
+      </p>
+      {/* display options */}
+      <div className='space-y-2.5'>
+        {question.options.map((opt, i) => {
+          const isSelected = selected === i;
+          const isCorrect = submitted && question.answerIndex === i;
+          const isWrong = submitted && isSelected && question.answerIndex !== i
+
+
+          return (
+            <button
+              key={i}
+              onClick={() => onSelect(index, i)}
+              className={`
+                block w-full text-left px-3 py-2 rounded-md border
+                ${isSelected ? "bg-blue-300  border-blue-100" : "bg-white border-gray-300"}
+                ${isCorrect ? "bg-green-500 border-green-500" : ""}
+                ${isWrong ? "bg-red-500 border-red-500" : ""}
+                text-black
+                `}
+                disabled={submitted}
+            >
+              {opt}
+            </button>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 

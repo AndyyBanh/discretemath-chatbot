@@ -1,0 +1,218 @@
+{
+  "Propositional Logic": [
+    {
+      "question": "Which of the following is a tautology?",
+      "options": ["P ∨ ¬P", "P ∧ ¬P", "P → Q", "¬P → Q"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What is the contrapositive of P → Q?",
+      "options": ["Q → P", "¬P → ¬Q", "¬Q → ¬P", "P ∨ Q"],
+      "answerIndex": 2
+    },
+    {
+      "question": "Which of the following is logically equivalent to P → Q?",
+      "options": ["¬P ∨ Q", "P ∨ Q", "¬Q → ¬P", "P ∧ Q"],
+      "answerIndex": 0
+    },
+    {
+      "question": "If P is true and Q is false, what is the truth value of P → Q?",
+      "options": ["True", "False", "Cannot be determined", "Sometimes true"],
+      "answerIndex": 1
+    },
+    {
+      "question": "Which connective represents logical equivalence?",
+      "options": ["∧", "∨", "↔", "→"],
+      "answerIndex": 2
+    }
+  ],
+  "Sets": [
+    {
+      "question": "What is the cardinality of the power set of {1,2,3}?",
+      "options": ["3", "6", "8", "9"],
+      "answerIndex": 2
+    },
+    {
+      "question": "If A = {1,2,3} and B = {3,4,5}, what is A ∩ B?",
+      "options": ["{1,2,3,4,5}", "{1,2}", "{3}", "{}"],
+      "answerIndex": 2
+    },
+    {
+      "question": "What is the complement of the universal set U?",
+      "options": ["∅", "U", "Depends on A", "{0}", "Cannot be defined"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which of the following represents the distributive law?",
+      "options": ["A ∩ (B ∪ C) = (A ∩ B) ∪ (A ∩ C)", "A ∪ (B ∩ C) = (A ∩ B) ∩ (A ∩ C)", "A ∩ (B ∩ C) = (A ∩ B) ∪ (A ∩ C)", "A ∪ (B ∪ C) = (A ∩ B) ∩ (A ∩ C)"],
+      "answerIndex": 0
+    },
+    {
+      "question": "The difference A − B is defined as:",
+      "options": ["{x | x ∈ A and x ∉ B}", "{x | x ∈ A or x ∈ B}", "{x | x ∉ A and x ∈ B}", "{x | x ∉ A or x ∉ B}"],
+      "answerIndex": 0
+    }
+  ],
+  "Big-O": [
+    {
+      "question": "Which function grows faster?",
+      "options": ["n log n", "n^2", "n", "√n"],
+      "answerIndex": 1
+    },
+    {
+      "question": "Which of the following is O(n log n)?",
+      "options": ["Merge Sort", "Bubble Sort", "Insertion Sort", "Selection Sort"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What is the Big-O of binary search?",
+      "options": ["O(n)", "O(log n)", "O(n log n)", "O(1)"],
+      "answerIndex": 1
+    },
+    {
+      "question": "Which of the following is O(n^3)?",
+      "options": ["Matrix multiplication (naive)", "Merge Sort", "Binary Search", "Heap Sort"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which notation represents the worst-case complexity?",
+      "options": ["Big-O", "Big-Ω", "Big-θ", "Little-o"],
+      "answerIndex": 0
+    }
+  ],
+  "Induction": [
+    {
+      "question": "Which of the following is proven by induction?",
+      "options": ["The sum of first n natural numbers is n(n+1)/2", "π is irrational", "Every graph has a spanning tree", "There are infinitely many primes"],
+      "answerIndex": 0
+    },
+    {
+      "question": "In induction, what is the base case?",
+      "options": ["The simplest case, usually n=1", "The general formula", "The inductive step", "The contradiction case"],
+      "answerIndex": 0
+    },
+    {
+      "question": "The inductive step requires showing:",
+      "options": ["P(k) → P(k+1)", "P(1)", "P(n) is true for all n", "P(k) ∧ P(k+1)"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Strong induction differs from simple induction in that:",
+      "options": ["It assumes all previous cases up to k", "It doesn’t need a base case", "It skips the inductive step", "It proves by contradiction"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which method is used to prove divisibility problems?",
+      "options": ["Contradiction", "Direct proof", "Induction", "Exhaustion"],
+      "answerIndex": 2
+    }
+  ],
+  "Recurrence Relations": [
+    {
+      "question": "What is the recurrence for Merge Sort?",
+      "options": ["T(n) = 2T(n/2) + O(n)", "T(n) = T(n-1) + O(1)", "T(n) = T(n/2) + O(1)", "T(n) = 3T(n/3) + O(n)"],
+      "answerIndex": 0
+    },
+    {
+      "question": "The recurrence T(n) = T(n-1) + O(1) solves to:",
+      "options": ["O(log n)", "O(n)", "O(n log n)", "O(1)"],
+      "answerIndex": 1
+    },
+    {
+      "question": "Which method is often used to solve recurrence relations?",
+      "options": ["Substitution", "Master theorem", "Recursion tree", "All of the above"],
+      "answerIndex": 3
+    },
+    {
+      "question": "The recurrence T(n) = 2T(n/2) + O(n) has complexity:",
+      "options": ["O(n)", "O(log n)", "O(n log n)", "O(n^2)"],
+      "answerIndex": 2
+    },
+    {
+      "question": "What is the complexity of the recurrence T(n) = T(n/2) + O(1)?",
+      "options": ["O(log n)", "O(n)", "O(1)", "O(n log n)"],
+      "answerIndex": 0
+    }
+  ],
+  "Relations": [
+    {
+      "question": "Which property does equality relation have?",
+      "options": ["Reflexive, Symmetric, Transitive", "Symmetric only", "Transitive only", "None"],
+      "answerIndex": 0
+    },
+    {
+      "question": "A relation R on a set A is antisymmetric if:",
+      "options": ["aRb and bRa ⇒ a=b", "aRb ⇒ bRa", "aRa", "a≠b always"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which relation is not an equivalence relation?",
+      "options": ["Equality", "Congruence mod n", "Less than (<)", "Parallel lines"],
+      "answerIndex": 2
+    },
+    {
+      "question": "An equivalence relation partitions a set into:",
+      "options": ["Subsets", "Equivalence classes", "Pairs", "Triplets"],
+      "answerIndex": 1
+    },
+    {
+      "question": "Which property must every equivalence relation satisfy?",
+      "options": ["Reflexive, Symmetric, Transitive", "Reflexive only", "Symmetric only", "Transitive only"],
+      "answerIndex": 0
+    }
+  ],
+  "Graphs": [
+    {
+      "question": "Which graph traversal uses a queue?",
+      "options": ["DFS", "BFS", "Dijkstra", "Prim's"],
+      "answerIndex": 1
+    },
+    {
+      "question": "Which of the following is a tree?",
+      "options": ["Acyclic connected graph", "Cyclic connected graph", "Disconnected graph", "Complete graph"],
+      "answerIndex": 0
+    },
+    {
+      "question": "In a connected graph with n vertices, the minimum number of edges is:",
+      "options": ["n-1", "n", "2n", "n^2"],
+      "answerIndex": 0
+    },
+    {
+      "question": "Which algorithm finds the shortest path?",
+      "options": ["Dijkstra", "DFS", "Prim's", "Kruskal"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What is the maximum number of edges in a simple undirected graph with n vertices?",
+      "options": ["n(n-1)/2", "n^2", "2n", "n(n+1)/2"],
+      "answerIndex": 0
+    }
+  ],
+  "Trees": [
+    {
+      "question": "A binary search tree is defined as:",
+      "options": ["Every node has at most 2 children", "Left child < root < right child", "All leaves at same depth", "It is a complete binary tree"],
+      "answerIndex": 1
+    },
+    {
+      "question": "In a complete binary tree with n nodes, the height is:",
+      "options": ["O(log n)", "O(n)", "O(1)", "O(n log n)"],
+      "answerIndex": 0
+    },
+    {
+      "question": "What traversal order gives nodes in sorted order for BST?",
+      "options": ["Preorder", "Postorder", "Inorder", "Level order"],
+      "answerIndex": 2
+    },
+    {
+      "question": "Which of the following is an application of heaps?",
+      "options": ["Heap Sort", "Prim’s algorithm", "Priority Queues", "All of the above"],
+      "answerIndex": 3
+    },
+    {
+      "question": "A full binary tree with n internal nodes has how many leaves?",
+      "options": ["n", "n+1", "2n", "2n+1"],
+      "answerIndex": 1
+    }
+  ]
+}

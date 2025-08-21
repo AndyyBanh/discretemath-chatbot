@@ -1,18 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react'
-
-// Define QuizQuestion object
-type QuizQuestion = {
-    question: string;
-    options: string[];
-    answer: string;
-}
+import QuizQuestionCard from './QuizQuestionCard';
+import { QuizQuestion } from './types';
 
 const Quiz = () => {
     // State Variables
     const [quiz, setQuiz] = useState<QuizQuestion[]>([]);
     const [loading, setLoading] = useState(false);
-    const [selected, setSelected] = useState<{ [key: number]: string }>({});
+    const [selected, setSelected] = useState<{ [key: number]: number }>({});
     const [submitted, setSubmitted] = useState(false);
 
     // API Call
@@ -36,8 +31,8 @@ const Quiz = () => {
     }
 
     // Handle Select
-    const handleSelect = ( questionIndex: number, option: string) => {
-        setSelected(prev => ({ ...prev, [questionIndex]: option }));
+    const handleSelect = ( questionIndex: number, optionIndex: number ) => {
+        setSelected(prev => ({ ...prev, [questionIndex]: optionIndex }));
     }
 
     // Handle Submit
@@ -45,7 +40,7 @@ const Quiz = () => {
         setSubmitted(true);
     }
 
-    const score = Object.entries(selected).filter(([i, opt]) => quiz[+i]?.answer == opt).length;
+    const score = Object.entries(selected).filter(([i, opt]) => quiz[+i]?.answerIndex == opt).length;
 
     // Render quiz 
     useEffect(() => {
@@ -55,7 +50,31 @@ const Quiz = () => {
 
   return (
     <div className='p-5'>
-    
+        <h2 className='font-black text-2xl'>Test Your Knowledge</h2>
+
+        {loading && <p>Loading Quiz...</p>}
+
+        {!loading && quiz.length > 0 && (
+            <div className='mt-6'>
+                {quiz.map((question,i) => (
+                    <QuizQuestionCard
+                        key={i}
+                        index={i}
+                        question={question}
+                        selected={selected[i]}
+                        onSelect={handleSelect}
+                        submitted={submitted}
+                    />
+                ))}
+                {!submitted ? (
+                    <button className='btn' onClick={handleSubmit}>
+                        Submit
+                    </button>
+                ) : (
+                    <p>Quiz Submitted Score: {score} / {quiz.length} </p>
+                )}
+            </div>
+        )}
     </div>
   )
 }
