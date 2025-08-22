@@ -32,7 +32,7 @@ const ChatInput = ( {onSend}: ChatInputProp ) => {
           />
           <button
             type='submit'
-            className='btn btn-lg'
+            className='btn btn-lg btn-primary'
           >
             Send
           </button>

@@ -50,12 +50,13 @@ const Quiz = () => {
 
 
   return (
-    <div className='p-5'>
+    <div className='p-6 max-w-3xl mx-auto'>
         <BackButton />
         <div className='mt-3.5'>
-            <h2 className='font-black text-2xl'>Test Your Knowledge</h2>
+            <h2 className='font-black text-2xl '>Test Your Knowledge</h2>
+            <p className='text-sm mt-1'>Answer questions below to check your understanding of Discrete Math.</p>
 
-            {loading && <p>Loading Quiz...</p>}
+            {loading && <span className='loading loading-spinner loading-lg'></span>}
 
             {!loading && quiz.length > 0 && (
                 <div className='mt-6'>
@@ -70,11 +71,11 @@ const Quiz = () => {
                         />
                     ))}
                     {!submitted ? (
-                        <button className='btn mt-5 w-xl' onClick={handleSubmit}>
+                        <button className='btn btn-lg btn-primary mt-5 w-full' onClick={handleSubmit}>
                             Submit
                         </button>
                     ) : (
-                        <p>Quiz Submitted Score: {score} / {quiz.length} </p>
+                        <p className='text-2xl mt-3 font-bold'>Quiz Submitted Score: {score} / {quiz.length} </p>
                     )}
                 </div>
             )}

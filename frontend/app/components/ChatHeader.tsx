@@ -11,7 +11,7 @@ const ChatHeader = ({ onClear }: ChatHeaderProp) => {
     <div className='card card-border bg-base-100 w-full'>
         <div className='flex items-center justify-between w-full p-5'>
             <h2 className='text-2xl font-semibold card-title'>Discrete Math AI Tutor</h2>
-            <button className='btn btn-lg' onClick={onClear}>Clear</button>
+            <button className='btn btn-lg btn-neutral transition duration-300 ease-in-out hover:scale-110' onClick={onClear}>Clear</button>
         </div>
     </div>
   )

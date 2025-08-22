@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import ThemeProvider from "./components/ThemeProvider";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,7 +28,10 @@ export default function RootLayout({
     <html lang="en" data-theme="dark" >
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <header className="border-b border-gray-300 p-5 flex justify-between">
-          <h1 className="btn btn-ghost text-xl">Discrete Math Assistant</h1>
+          <Link href="/" >
+            <h1 className="btn btn-ghost text-xl">Discrete Math Assistant</h1>
+          </Link>
+          
           <ThemeProvider>{children}</ThemeProvider>
         </header>
         {children}
