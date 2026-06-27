@@ -15,8 +15,9 @@ load_dotenv()
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
-DATA_PATH = "../data/DiscreteMathText.md"
-CHROMA_PATH = "chroma"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATA_PATH = os.path.join(BASE_DIR, "..", "data", "DiscreteMathText.md")
+CHROMA_PATH = os.path.join(BASE_DIR, "chroma")
 
 def main():
     generate_date_store()
@@ -36,10 +37,12 @@ def load_documents():
 # function that takes documents and cuts into chunks for more accurate readings
 def split_text(documents: list[Document]):
     text_splitter = RecursiveCharacterTextSplitter(
-        chunk_size=1000,
-        chunk_overlap=500,
+        chunk_size=600,
+        chunk_overlap=100,
         length_function=len,
         add_start_index=True,
+        # Prefer slide (---) and heading (#) boundaries so each concept stays in its own chunk
+        separators=["\n---\n", "\n# ", "\n\n", "\n", " ", ""],
     )
 
     chunks = text_splitter.split_documents(documents)
@@ -58,7 +61,7 @@ def save_to_chroma(chunks: list[Document]):
 
     # Create a new DB from the documents
     db = Chroma.from_documents(
-        chunks, OpenAIEmbeddings(), persist_directory=CHROMA_PATH
+        chunks, OpenAIEmbeddings(model="text-embedding-3-small"), persist_directory=CHROMA_PATH
     )
     print(f"Saved {len(chunks)} chunks to {CHROMA_PATH}.")
 

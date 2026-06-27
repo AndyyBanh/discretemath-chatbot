@@ -11,7 +11,8 @@ import openai
 # Load enviroment variables
 load_dotenv()
 openai.api_key = os.environ["OPENAI_API_KEY"]
-CHROMA_PATH = "chroma"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CHROMA_PATH = os.path.join(BASE_DIR, "chroma")
 
 PROMPT_TEMPLATE = """
 Answer the question based only on the following context:
@@ -31,12 +32,12 @@ def main():
     query_text = arg.query_text
 
     # Prepare DB
-    embedding_function = OpenAIEmbeddings()
+    embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
     # Search DB for best match of query
-    results = db.similarity_search_with_relevance_scores(query_text, k=3)
-    if len(results) == 0 or results[0][1] < 0.7: # check if no results or no accurate results
+    results = db.similarity_search_with_relevance_scores(query_text, k=5)
+    if len(results) == 0 or results[0][1] < 0.3: # check if no results or no accurate results
         print(f"Unable to find matching results.")
         return 
     
@@ -54,7 +55,7 @@ def main():
 
     # Use LLM to answer
     llm = ChatOpenAI(
-        model="gpt-4o-mini",
+        model="gpt-5.4-mini",
         temperature=0,
         max_tokens=300,
     )

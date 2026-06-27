@@ -9,10 +9,12 @@ import os
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import random
+import time
 
 # Load env
 load_dotenv()
-CHROMA_PATH = "chroma"
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+CHROMA_PATH = os.path.join(BASE_DIR, "chroma")
 
 app = FastAPI()
 
@@ -42,14 +44,14 @@ class QueryRequest(BaseModel):
 class QuizRequest(BaseModel):
     topic: str | None = None
 
-QUIZ_FILE = "quizzes.json"
+QUIZ_FILE = os.path.join(BASE_DIR, "quizzes.json")
 if os.path.exists(QUIZ_FILE):
     with open(QUIZ_FILE, "r") as f:
         QUIZZES = json.load(f)
 
 
 # Setup DB
-embedding_function = OpenAIEmbeddings()
+embedding_function = OpenAIEmbeddings(model="text-embedding-3-small")
 db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
 # CHAT API ENDPOINT
@@ -58,10 +60,12 @@ async def chat_endpoint(request: QueryRequest):
     query_text = request.query
 
     # Search DB for best match of query
-    results = db.similarity_search_with_relevance_scores(query_text, k=3)
-    if len(results) == 0 or results[0][1] < 0.7: # check if no results or no accurate results
+    results = db.similarity_search_with_relevance_scores(query_text, k=5)
+    if len(results) == 0 or results[0][1] < 0.3: # check if no results or no accurate results
         return {"response": "Unable to find matching results.", "sources": []}
     
+    start = time.time()
+
     # Create prompt
     context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
     prompt_template = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
@@ -70,7 +74,7 @@ async def chat_endpoint(request: QueryRequest):
 
     # Call LLM
     llm = ChatOpenAI(
-        model="gpt-4o-mini",
+        model="gpt-5.4-mini",
         temperature=0,
         max_tokens=300,
     )
@@ -79,6 +83,9 @@ async def chat_endpoint(request: QueryRequest):
     response = llm.invoke(messages) # call model with list of messages
     response_text = response.content
 
+    elapsed_ms = (time.time() - start) * 1000
+    print(f"[latency] {elapsed_ms:.1f}ms")
+    
     # Get Source
     sources = [doc.metadata.get("source", None) for doc, _score in results]
 
